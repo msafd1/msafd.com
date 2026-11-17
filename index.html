@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mohammad safdari</title>
+<meta name="description" content="mohammad safdari is a systems engineer confident across the software and hardware stack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: one narrow, left-aligned column on white. Neutral ink and clear glass
+     controls; everything is greyscale and text only. */
+  --paper: #FFFFFF;
+  --ink: #15181D;
+  --muted: #5B6370;
+  --line: #DADEE4;
+  --cobalt: #5A5F67;
+  --signal: #8E949C;
+  --display: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --body: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-transform: lowercase;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 8px; }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+/* Clear glass controls */
+.glass {
+  color: var(--ink);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.38));
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(21, 24, 29, 0.06),
+    0 0 0 1px rgba(21, 24, 29, 0.08),
+    0 8px 24px rgba(21, 24, 29, 0.12),
+    0 1px 3px rgba(21, 24, 29, 0.08);
+}
+button.glass, a.glass { cursor: pointer; transition: transform 0.15s, box-shadow 0.2s, background-color 0.2s; }
+button.glass:hover, a.glass:hover {
+  background-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(21, 24, 29, 0.06),
+    0 0 0 1px rgba(21, 24, 29, 0.12),
+    0 10px 28px rgba(21, 24, 29, 0.16),
+    0 1px 3px rgba(21, 24, 29, 0.1);
+}
+button.glass:active, a.glass:active { transform: scale(0.97); }
+
+/* Top bar stays pinned so the glass floats over the artwork */
+.top {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: flex-end; align-items: center;
+  padding: 14px 0;
+  pointer-events: none;
+}
+.top > * { pointer-events: auto; }
+.cta { font: 500 0.95rem/1 var(--body); padding: 0.95em 1.3em; }
+
+/* Hero */
+.hero { padding: 12px 0 0; }
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 1rem + 5.2vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+}
+.lede { margin-top: 18px; max-width: 40em; font-size: 1rem; color: var(--muted); }
+
+/* Section switch: plain text tabs on a hairline, with an underline that slides to the selected one */
+.tabs { position: relative; display: flex; gap: 30px; margin-top: 44px; border-bottom: 1px solid var(--line); }
+.tab {
+  font: 700 1.05rem/1 var(--display); letter-spacing: -0.02em;
+  color: var(--muted); background: none;
+  border: 0; border-radius: 0; margin: 0; padding: 0 0 13px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.tab:hover, .tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"] { box-shadow: 0 2px 0 var(--ink); }
+.js .tab[aria-selected="true"] { box-shadow: none; }
+.tabline {
+  position: absolute; left: 0; bottom: -1px; width: 0; height: 2px;
+  background: var(--ink);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), width 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.slider { margin-top: 30px; }
+.panel + .panel { margin-top: 56px; }
+.js .slider { overflow: hidden; transition: height 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .track { display: flex; align-items: flex-start; transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .panel { flex: 0 0 100%; min-width: 0; margin-top: 0; }
+
+.note { font: 500 1rem/1.3 var(--display); color: var(--ink); margin: 2px 0 24px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.grid { display: grid; gap: 28px; }
+.card + .card { border-top: 1px solid var(--line); padding-top: 28px; }
+.card h3 {
+  font-family: var(--display); font-weight: 700;
+  font-size: 1.08rem; line-height: 1.3; letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.meta { color: var(--muted); font-size: 0.9rem; font-weight: 400; margin-top: 3px; }
+.card p.say { margin-top: 9px; max-width: 44em; }
+.with { color: var(--muted); font-size: 0.9rem; margin-top: 8px; max-width: 40em; }
+.did { margin-top: 12px; max-width: 46em; }
+.did li { position: relative; padding-left: 1.3em; }
+.did li + li { margin-top: 7px; }
+.did li::before {
+  content: ""; position: absolute; left: 0; top: 0.72em;
+  width: 10px; height: 2.5px; border-radius: 2px; background: var(--signal);
+}
+
+/* Label and value rows */
+.rows li {
+  display: grid; grid-template-columns: 11em 1fr; gap: 20px; align-items: baseline;
+  padding: 13px 0; border-bottom: 1px solid var(--line);
+}
+.rows li:first-child { border-top: 1px solid var(--line); }
+.rows li > :first-child { font-weight: 700; }
+.rows li > :last-child { color: var(--muted); font-size: 0.9rem; }
+.rows.pair li { grid-template-columns: 1fr auto; }
+.sub { font: 600 1.1rem/1.2 var(--display); letter-spacing: -0.01em; margin: 36px 0 12px; }
+
+/* Stack */
+.tools { margin-top: 64px; }
+.edu h2, .tools h2, .about h2 { font-family: var(--display); font-weight: 700; letter-spacing: -0.045em; }
+.edu h2, .tools h2 { font-size: 1.5rem; line-height: 1.1; margin-bottom: 16px; }
+.edu { margin-top: 44px; }
+.edu h2 { margin-bottom: 22px; }
+
+/* About and contact */
+.about { margin-top: 72px; padding-bottom: 56px; scroll-margin-top: 84px; }
+.about h2 { font-size: 1.5rem; line-height: 1.1; }
+.about p { margin-top: 18px; max-width: 42em; }
+.links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.links a { font-weight: 500; font-size: 0.93rem; line-height: 1; text-decoration: none; padding: 0.9em 1.25em; }
+.place { margin-top: 32px; color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 580px) {
+  body { font-size: 14px; }
+  .hero { padding-top: 8px; }
+  .tabs { gap: 24px; }
+  .rows li, .rows.pair li { grid-template-columns: 1fr; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .slider, .js .track, .tab, .tabline { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <button class="cta glass" type="button" id="touch">contact</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>mohammad safdari</h1>
+      <p class="lede">systems engineer, confident across the software and hardware stack. in an ideal world i write the code, build the prototype and test it myself. i've chosen my work and study deliberately to build expertise across mechanical, electrical and software engineering.</p>
+    </section>
+
+    <section class="edu" aria-labelledby="edu-title">
+      <h2 id="edu-title">education</h2>
+      <div class="grid">
+
+        <article class="card">
+          <div class="body">
+          <h3>master of systems engineering</h3>
+          <p class="meta">university of new south wales, canberra</p>
+          <p class="say">2026 to 2027.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="body">
+          <h3>bachelor of engineering</h3>
+          <p class="meta">griffith university, brisbane</p>
+          <p class="say">2021 to 2025. mechanical engineering major with an electronics minor.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist" aria-label="portfolio sections">
+      <span class="tabline" role="presentation"></span>
+      <button class="tab" role="tab" type="button" id="tab-work" aria-controls="panel-work" aria-selected="true" data-name="work">work</button>
+      <button class="tab" role="tab" type="button" id="tab-projects" aria-controls="panel-projects" aria-selected="false" data-name="projects" tabindex="-1">projects</button>
+    </div>
+
+    <div class="slider">
+      <div class="track">
+
+        <!-- Work -->
+        <section class="panel" role="tabpanel" id="panel-work" aria-labelledby="tab-work">
+          <h2 class="note">professional engineering experience</h2>
+          <div class="grid">
+
+            <article class="card">
+              <div class="body">
+              <h3>systems engineer, pivotal engineering</h3>
+              <p class="meta">september 2024 to present, brisbane</p>
+              <p class="say">i design electrical and control systems for large industrial plants, then go to site and make them run. i took a pilot processing plant from prototype testing to live production, fixing logic, control loops, and electrical and network faults on running equipment.</p>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="body">
+              <h3>machine learning researcher, biospine</h3>
+              <p class="meta">october 2024 to march 2025, gold coast</p>
+              <p class="say">i built the decoder for a brain–computer interface that helps people with paralysis move again, lifting real-world classification accuracy from 70% to 82%.</p>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="panel" role="tabpanel" id="panel-projects" aria-labelledby="tab-projects">
+          <h2 class="note">some projects i've built for fun</h2>
+          <div class="grid">
+
+            <article class="card">
+              <div class="body">
+              <h3>electromyography sleeve for robot data</h3>
+              <p class="say">i'm building a wearable that reads forearm muscle signals to predict finger pose and fingertip force, so robots can learn dexterity from real hands. i designed the 8-channel circuit board, debugged it on the bench and wrote the tooling that logs synchronised ground truth from a meta quest 3 and force sensors.</p>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="body">
+              <h3>autonomous race car</h3>
+              <p class="say">i designed, wired and programmed a two-wheel-drive robot that drives itself around a track, from the laser-cut chassis to the c++ firmware that keeps it centred at the limit of grip. i took it from bench prototype to live track demos and kept cutting its lap times.</p>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="body">
+              <h3>ball and beam balancing controller</h3>
+              <p class="say">i modelled a ball and beam system, then designed and tuned a controller on the bench until a servo held the rolling ball on target.</p>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <section class="tools" aria-labelledby="tools-title">
+      <h2 id="tools-title">tools</h2>
+      <ul class="rows">
+        <li><span>programming</span><span>python, c and c++, matlab, simulink, ladder logic, function blocks</span></li>
+        <li><span>mechatronics</span><span>solidworks, autocad, circuit board design and debugging, esp32, arduino</span></li>
+        <li><span>machine learning</span><span>pytorch and tensorflow</span></li>
+        <li><span>controls</span><span>control loop tuning, schneider m580, rockwell controllogix, ignition, aveva citect</span></li>
+      </ul>
+    </section>
+
+    <section class="tools" aria-labelledby="certs-title">
+      <h2 id="certs-title">certifications</h2>
+      <ul class="rows pair">
+        <li><span>ignition core certification</span><span>inductive automation</span></li>
+        <li><span>studio 5000 level 1</span><span>rockwell automation university</span></li>
+      </ul>
+    </section>
+
+    <section class="about" id="about">
+      <h2>if you've made it this far - get in touch</h2>
+      <div class="links">
+        <a class="glass" href="mailto:m@msafd.com">m@msafd.com</a>
+        <a class="glass" href="https://www.linkedin.com/in/msafd/">linkedin</a>
+      </div>
+      <p class="place">brisbane, australia</p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  document.documentElement.classList.add('js');
+
+  // Section switcher
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+  var slider = document.querySelector('.slider'), track = document.querySelector('.track'), tabline = document.querySelector('.tabline');
+  var current = 0;
+
+  function fit() {
+    slider.style.height = panels[current].offsetHeight + 'px';
+    tabline.style.width = tabs[current].offsetWidth + 'px';
+    tabline.style.transform = 'translateX(' + tabs[current].offsetLeft + 'px)';
+  }
+  function show(i, opts) {
+    current = i;
+    tabs.forEach(function (t, k) {
+      var on = k === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[k].inert = !on;
+      panels[k].setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    track.style.transform = 'translateX(' + (-100 * i) + '%)';
+    fit();
+    if (opts && opts.focus) tabs[i].focus();
+    if (opts && opts.hash) { try { history.replaceState(null, '', '#' + tabs[i].dataset.name); } catch (e) {} }
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i, { hash: true }); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+      if (n === null) return;
+      e.preventDefault();
+      show((n + tabs.length) % tabs.length, { focus: true, hash: true });
+    });
+  });
+  function fromHash() {
+    var name = location.hash.replace('#', '');
+    var i = tabs.findIndex(function (t) { return t.dataset.name === name; });
+    show(i < 0 ? 0 : i);
+  }
+  window.addEventListener('hashchange', fromHash);
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(fit);
+    panels.forEach(function (p) { ro.observe(p); });
+    ro.observe(document.querySelector('.tabs'));
+  } else {
+    window.addEventListener('resize', fit);
+  }
+  fromHash();
+
+  // Contact pill scrolls to the contact links
+  document.getElementById('touch').addEventListener('click', function () {
+    document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>
