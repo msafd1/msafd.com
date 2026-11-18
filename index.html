@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mohammad safdari</title>
+<script>try{if(sessionStorage.getItem('introSeen')){document.documentElement.classList.add('seen')}else{sessionStorage.setItem('introSeen','1')}}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2315181D'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Menlo,Consolas,monospace' font-size='28' font-weight='800' letter-spacing='-2' fill='%23fff'%3Ems%3C/text%3E%3C/svg%3E">
 <meta name="description" content="mohammad safdari is a systems engineer confident across the software and hardware stack.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,6 +78,32 @@ button.glass:active, a.glass:active { transform: scale(0.97); }
   pointer-events: none;
 }
 .top > * { pointer-events: auto; }
+/* Intro: brackets appear, a cursor types "ms" between them, then the curtain lifts. Pure CSS, so it always ends. */
+.intro {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ink); color: #FFFFFF;
+  font: 800 clamp(3.5rem, 2rem + 8vw, 7rem)/1 var(--display); letter-spacing: -0.06em;
+  animation: curtain 0.6s cubic-bezier(0.7, 0, 0.2, 1) 1.75s forwards;
+}
+.intro .word { display: inline-flex; align-items: center; }
+.intro .br { font-weight: 300; color: #8E949C; opacity: 0; }
+.intro .l, .intro .r { animation: brIn 0.35s cubic-bezier(0.3, 1.4, 0.5, 1) 0.1s forwards; }
+.intro .ch { display: inline-block; overflow: hidden; max-width: 0; animation: key 0.01s steps(1, start) forwards; }
+.intro .m { animation-delay: 0.75s; }
+.intro .s { animation-delay: 0.95s; }
+.intro .cur {
+  display: inline-block; width: 0.55ch; height: 0.12em; margin: 0 0.05ch; align-self: flex-end;
+  transform: translateY(-0.18em); background: #FFFFFF; overflow: hidden; max-width: 1ch;
+  animation: blink 0.5s steps(1) 0.15s 3, cursorOut 0.12s ease-in 1.4s forwards;
+}
+@keyframes brIn { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes key { to { max-width: 1ch; } }
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes cursorOut { to { max-width: 0; width: 0; margin: 0; } }
+@keyframes curtain { to { transform: translateY(-100%); visibility: hidden; } }
+.seen .intro, .intro.done { display: none; }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
 .logo {
   display: inline-flex; align-items: center; justify-content: center;
   width: 56px; height: 56px; border-radius: 12px;
@@ -181,6 +208,9 @@ h1 {
 <body>
 <div class="wrap">
 
+  <div class="intro" aria-hidden="true">
+    <span class="word"><span class="br l">[</span><span class="ch m">m</span><span class="ch s">s</span><span class="cur"></span><span class="br r">]</span></span>
+  </div>
   <header class="top">
     <a class="logo" href="#" aria-label="mohammad safdari, back to top"><span>[</span>ms<span>]</span></a>
     <button class="cta glass" type="button" id="touch">contact</button>
@@ -312,6 +342,12 @@ h1 {
 <script>
 (function () {
   document.documentElement.classList.add('js');
+
+  var intro = document.querySelector('.intro');
+  function skip() { intro.classList.add('done'); }
+  intro.addEventListener('click', skip);
+  intro.addEventListener('animationend', function (e) { if (e.animationName === 'curtain') skip(); });
+  window.addEventListener('keydown', function once() { skip(); window.removeEventListener('keydown', once); });
 
   // Section switcher
   var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
