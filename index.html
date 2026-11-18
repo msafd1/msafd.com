@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mohammad safdari</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2315181D'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Menlo,Consolas,monospace' font-size='28' font-weight='800' letter-spacing='-2' fill='%23fff'%3Ems%3C/text%3E%3C/svg%3E">
 <meta name="description" content="mohammad safdari is a systems engineer confident across the software and hardware stack.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,11 +72,18 @@ button.glass:active, a.glass:active { transform: scale(0.97); }
 /* Top bar stays pinned so the glass floats over the artwork */
 .top {
   position: sticky; top: 0; z-index: 10;
-  display: flex; justify-content: flex-end; align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 14px 0;
   pointer-events: none;
 }
 .top > * { pointer-events: auto; }
+.logo {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 12px;
+  background: var(--ink); color: #FFFFFF; text-decoration: none;
+  font: 800 1.05rem/1 var(--display); letter-spacing: -0.08em;
+}
+.logo span { font-weight: 300; color: #8E949C; }
 .cta { font: 500 0.95rem/1 var(--body); padding: 0.95em 1.3em; }
 
 /* Hero */
@@ -174,6 +182,7 @@ h1 {
 <div class="wrap">
 
   <header class="top">
+    <a class="logo" href="#" aria-label="mohammad safdari, back to top"><span>[</span>ms<span>]</span></a>
     <button class="cta glass" type="button" id="touch">contact</button>
   </header>
 
